@@ -10,12 +10,18 @@ const App: React.FC = () => {
   const handleModalClick = () => {
     console.log("Im clicking on my modal");
   };
+  const handleModalClose = () => {
+    toggleModal(!showModal);
+    toggleGameBoard(!showGameBoard);
+  };
 
   const ModalProps = {
     title: "MasterMind 2019",
+    // content could really be a component that just needs to be rendered based on modal.
     content:
       "Welcome to the remastered version of MasterMind.  This project was originally started as a final project for DigitalCrafts coding bootcamp",
-    onClick: handleModalClick
+    onClick: handleModalClick,
+    onClose: handleModalClose
   };
 
   return (

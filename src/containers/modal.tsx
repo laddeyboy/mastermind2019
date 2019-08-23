@@ -1,12 +1,12 @@
 import React from "react";
 
-const modalContainerStyle: React.CSSProperties = {
+const modalBackground: React.CSSProperties = {
   width: "100vw",
   height: "100vh",
   backgroundColor: "rgba(0,0,0,0.8)"
 };
 
-const modalWindow: React.CSSProperties = {
+const modalContainer: React.CSSProperties = {
   width: "50vw",
   height: "50vh",
   backgroundColor: "gray",
@@ -21,8 +21,6 @@ const modalTitle: React.CSSProperties = {
   width: "100%",
   height: "10%",
   display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
   fontSize: "1.5rem",
   color: "white",
   backgroundColor: "black"
@@ -36,21 +34,46 @@ const modalContent: React.CSSProperties = {
   alignItems: "center"
 };
 
+const modalHeading: React.CSSProperties = {
+  width: "90%",
+  height: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
+
+const modalClose: React.CSSProperties = {
+  width: "10%",
+  height: "100%",
+  cursor: "pointer",
+  fontSize: "1rem",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center"
+};
+
 interface OwnProps {
   modalProps: {
     title: string;
     content: string;
     onClick: () => void;
+    onClose: () => void;
   };
 }
 
 const Modal: React.FC<OwnProps> = props => {
+  const { title, content, onClick, onClose } = props.modalProps;
   return (
-    <div style={modalContainerStyle}>
-      <div style={modalWindow}>
-        <div style={modalTitle}>{props.modalProps.title}</div>
-        <div style={modalContent} onClick={props.modalProps.onClick}>
-          {props.modalProps.content}
+    <div style={modalBackground}>
+      <div style={modalContainer}>
+        <div style={modalTitle}>
+          <div style={modalHeading}>{title}</div>
+          <div style={modalClose} onClick={onClose}>
+            X
+          </div>
+        </div>
+        <div style={modalContent} onClick={onClick}>
+          {content}
         </div>
       </div>
     </div>
