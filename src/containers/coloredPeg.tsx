@@ -13,14 +13,17 @@ const ColoredPeg: React.FC<OwnProps> = props => {
     height: "4rem",
     borderRadius: "50%",
     border: "1px solid black",
-    backgroundColor: color,
-    boxShadow: inactiveButton
+    background: "white",
+    // backgroundColor: color,
+    // background: `linear-gradient(-35deg, ${color} 40%, 70%, white)`,
+    boxShadow: `${inactiveButton}, inset -15px -15px 25px 12px ${color}`
   };
 
   const setPegMarkerStyle = () => {
     const newStyle = { ...PegStyle };
     if (active) {
-      newStyle.boxShadow = "none";
+      newStyle.background = "white";
+      newStyle.boxShadow = `inset -10px -10px 25px 12px ${color}`;
     }
     return newStyle;
   };

@@ -8,7 +8,8 @@ const gameBoardStyling: React.CSSProperties = {
   top: "30%",
   left: "calc(50% - 40vw",
   border: "2px solid black",
-  display: "flex"
+  display: "flex",
+  backgroundColor: "#b3b3b3"
 };
 
 const gameBoard: React.FC = () => {
