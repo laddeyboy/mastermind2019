@@ -14,8 +14,6 @@ const ColoredPeg: React.FC<OwnProps> = props => {
     borderRadius: "50%",
     border: "1px solid black",
     background: "white",
-    // backgroundColor: color,
-    // background: `linear-gradient(-35deg, ${color} 40%, 70%, white)`,
     boxShadow: `${inactiveButton}, inset -15px -15px 25px 12px ${color}`
   };
 

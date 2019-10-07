@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GameBoardColumn from "./gameBoardColumn";
+
+import { setupGameLogic } from "../util/helpers";
 
 const gameBoardStyling: React.CSSProperties = {
   width: "80vw",
@@ -12,9 +14,10 @@ const gameBoardStyling: React.CSSProperties = {
   backgroundColor: "#b3b3b3"
 };
 
-const gameBoard: React.FC = () => {
-  // const [userAttempts, setGuesses] = useState(10);
-  const userAttempts = 10;
+const GameBoard: React.FC = () => {
+  const [userAttempts, setGuesses] = useState(10);
+
+  useEffect(() => console.log(setupGameLogic()));
 
   const drawGameBoardColumn = () => {
     const gameColumns = [];
@@ -29,4 +32,4 @@ const gameBoard: React.FC = () => {
   return <div style={gameBoardStyling}>{drawGameBoardColumn()}</div>;
 };
 
-export default gameBoard;
+export default GameBoard;

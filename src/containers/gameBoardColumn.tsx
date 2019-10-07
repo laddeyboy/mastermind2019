@@ -26,7 +26,7 @@ const gameBoardColumn: React.FC<PassedProps> = props => {
       <div style={gameRowButtonSection}>
         <ColoredPeg color="blue" />
         <ColoredPeg color="red" />
-        <ColoredPeg color="yellow" />
+        <ColoredPeg color="gold" />
         <ColoredPeg color="black" />
       </div>
     </div>

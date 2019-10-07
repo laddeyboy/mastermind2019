@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 // import ColoredPeg from "./containers/coloredPeg";
-// import Modal from "./containers/modal";
+import NavBar from "./containers/navbar";
+import Modal from "./containers/modal";
 import GameBoard from "./containers/gameBoard";
-
-import { setupGameLogic } from "./util/helpers";
 
 const App: React.FC = () => {
   const [showModal, toggleModal] = useState(true);
-  const [showGameBoard, toggleGameBoard] = useState(true);
-
-  useEffect(() => console.log(setupGameLogic().gameIsSetup));
+  const [showGameBoard, toggleGameBoard] = useState(false);
 
   const handleModalClick = () => {
     console.log("Im clicking on my modal");
@@ -31,9 +28,9 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <GameBoard />
-      {/* {showModal ? <Modal modalProps={ModalProps} /> : null} */}
-      {/* {showGameBoard ? <ColoredPeg color="blue" /> : null} */}
+      <NavBar />
+      {showModal ? <Modal modalProps={ModalProps} /> : null}
+      {showGameBoard ? <GameBoard /> : null}
     </div>
   );
 };
