@@ -2,6 +2,8 @@ import React from "react";
 
 interface OwnProps {
   color: string;
+  btnId: number;
+  handleSetAttemptPeg: (btnId: number, color: string) => void;
 }
 
 const ColoredPeg: React.FC<OwnProps> = props => {
@@ -28,6 +30,7 @@ const ColoredPeg: React.FC<OwnProps> = props => {
 
   const handleClick = () => {
     toogleActive(!active);
+    props.handleSetAttemptPeg(props.btnId, color);
   };
 
   return <div style={setPegMarkerStyle()} onClick={handleClick} />;

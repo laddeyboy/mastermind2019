@@ -4,6 +4,7 @@ import "./App.css";
 import NavBar from "./containers/navbar";
 import Modal from "./containers/modal";
 import GameBoard from "./containers/gameBoard";
+import ColorPalette from "./containers/colorPalette";
 
 const App: React.FC = () => {
   const [showModal, toggleModal] = useState(true);
@@ -30,7 +31,12 @@ const App: React.FC = () => {
     <div className="App">
       <NavBar />
       {showModal ? <Modal modalProps={ModalProps} /> : null}
-      {showGameBoard ? <GameBoard /> : null}
+      {showGameBoard ? (
+        <React.Fragment>
+          <GameBoard />
+          <ColorPalette />
+        </React.Fragment>
+      ) : null}
     </div>
   );
 };

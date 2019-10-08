@@ -16,14 +16,23 @@ const gameBoardStyling: React.CSSProperties = {
 
 const GameBoard: React.FC = () => {
   const [userAttempts, setGuesses] = useState(10);
+  const [currentAttempt, setCurrentAttempt] = useState(0);
 
-  useEffect(() => console.log(setupGameLogic()));
+  useEffect(() => console.log("winning sequence", setupGameLogic()));
+
+  const handleSubmitAttempt = (attemptArray: Array<string>) => {
+    console.log("user is guessing", attemptArray);
+  };
 
   const drawGameBoardColumn = () => {
     const gameColumns = [];
     for (let i = 0; i < userAttempts; i++) {
       gameColumns.push(
-        <GameBoardColumn key={"row" + i.toString()} rowInd={i} />
+        <GameBoardColumn
+          key={"row" + i.toString()}
+          rowInd={i}
+          submitAttempt={handleSubmitAttempt}
+        />
       );
     }
     return gameColumns;
