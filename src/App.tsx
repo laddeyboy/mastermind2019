@@ -4,7 +4,6 @@ import "./App.css";
 import NavBar from "./containers/navbar";
 import Modal from "./containers/modal";
 import GameBoard from "./containers/gameBoard";
-import ColorPalette from "./containers/colorPalette";
 
 const App: React.FC = () => {
   const [showModal, toggleModal] = useState(true);
@@ -27,16 +26,13 @@ const App: React.FC = () => {
     onClose: handleModalClose
   };
 
+  // BUG: everytime this rerenders I'm resetting my winning sequence!!!
+
   return (
     <div className="App">
       <NavBar />
       {showModal ? <Modal modalProps={ModalProps} /> : null}
-      {showGameBoard ? (
-        <React.Fragment>
-          <GameBoard />
-          <ColorPalette />
-        </React.Fragment>
-      ) : null}
+      {showGameBoard ? <GameBoard /> : null}
     </div>
   );
 };

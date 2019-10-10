@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ColoredPeg from "./coloredPeg";
 
+const EMPTY_PEG_SLOT = "beige";
+
 const gameRowStyle: React.CSSProperties = {
   height: "100%",
   width: "calc(100% / 11)",
@@ -16,7 +18,7 @@ const gameRowBtnSection: React.CSSProperties = {
 };
 
 const submitAttemptStyle: React.CSSProperties = {
-  width: "90%",
+  width: "95%",
   backgroundColor: "green",
   color: "white",
   border: "1px solid white",
@@ -27,6 +29,7 @@ const submitAttemptStyle: React.CSSProperties = {
 
 interface PassedProps {
   rowInd: number;
+  currentUserColor: string;
   submitAttempt: (attemptArray: Array<string>) => void;
 }
 
@@ -41,31 +44,27 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
     newAttempt[btnId] = color;
     setAttemptArray(newAttempt);
   };
+
+  const createdPegHoles = () => {
+    const pegHoleArray = [];
+    for (let i = 0; i < 4; i++) {
+      pegHoleArray.push(
+        <ColoredPeg
+          color={EMPTY_PEG_SLOT}
+          currentUserColor={props.currentUserColor}
+          btnId={i}
+          handleSetPegColor={handleSetAttempt}
+        />
+      );
+    }
+    return pegHoleArray;
+  };
   return (
     <div style={gameRowStyle}>
       <div style={{ padding: "2%" }}>Guess {props.rowInd + 1}</div>
       <div style={gameRowBtnSection}>
-        <ColoredPeg
-          color="blue"
-          btnId={0}
-          handleSetAttemptPeg={handleSetAttempt}
-        />
-        <ColoredPeg
-          color="red"
-          btnId={1}
-          handleSetAttemptPeg={handleSetAttempt}
-        />
-        <ColoredPeg
-          color="gold"
-          btnId={2}
-          handleSetAttemptPeg={handleSetAttempt}
-        />
-        <ColoredPeg
-          color="black"
-          btnId={3}
-          handleSetAttemptPeg={handleSetAttempt}
-        />
-        <div style={{ alignSelf: "flex-end", height: "10%" }}>
+        {createdPegHoles()}
+        <div>
           <button
             type="button"
             style={submitAttemptStyle}

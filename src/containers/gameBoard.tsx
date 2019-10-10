@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ColorPalette from "./colorPalette";
 import GameBoardColumn from "./gameBoardColumn";
 
 import { setupGameLogic } from "../util/helpers";
@@ -15,10 +16,20 @@ const gameBoardStyling: React.CSSProperties = {
 };
 
 const GameBoard: React.FC = () => {
+  const [winningSequence] = useState(setupGameLogic());
   const [userAttempts, setGuesses] = useState(10);
+  const [userCurrentColor, setCurrentColor] = useState({
+    btnId: 0,
+    color: "white"
+  });
   const [currentAttempt, setCurrentAttempt] = useState(0);
 
-  useEffect(() => console.log("winning sequence", setupGameLogic()));
+  const handleSetUserColorChoice = (pegObj: {
+    btnId: number;
+    color: string;
+  }) => {
+    setCurrentColor(pegObj);
+  };
 
   const handleSubmitAttempt = (attemptArray: Array<string>) => {
     console.log("user is guessing", attemptArray);
@@ -32,13 +43,23 @@ const GameBoard: React.FC = () => {
           key={"row" + i.toString()}
           rowInd={i}
           submitAttempt={handleSubmitAttempt}
+          currentUserColor={userCurrentColor.color}
         />
       );
     }
     return gameColumns;
   };
 
-  return <div style={gameBoardStyling}>{drawGameBoardColumn()}</div>;
+  // return <div style={gameBoardStyling}>{drawGameBoardColumn()}</div>;
+  return (
+    <React.Fragment>
+      <ColorPalette
+        currentPegObj={userCurrentColor}
+        setUserColorChoice={handleSetUserColorChoice}
+      />
+      <div style={gameBoardStyling}>{drawGameBoardColumn()}</div>
+    </React.Fragment>
+  );
 };
 
 export default GameBoard;
