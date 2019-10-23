@@ -6,3 +6,5 @@ export const COLOR_PALETTE: Array<string> = [
   "green",
   "brown"
 ];
+
+export const EMPTY_PEG_SLOT = "beige";

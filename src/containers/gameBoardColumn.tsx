@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ColoredPeg from "./coloredPeg";
-
-const EMPTY_PEG_SLOT = "beige";
+import { EMPTY_PEG_SLOT } from "../util/constants";
 
 const gameRowStyle: React.CSSProperties = {
   height: "100%",
@@ -29,6 +28,7 @@ const submitAttemptStyle: React.CSSProperties = {
 
 interface PassedProps {
   rowInd: number;
+  currentAttempt: number;
   currentUserColor: string;
   submitAttempt: (attemptArray: Array<string>) => void;
 }

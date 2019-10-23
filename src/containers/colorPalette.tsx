@@ -18,7 +18,7 @@ const ColorPaletteStyle = {
 };
 
 interface PassedProps {
-  currentPegObj: { btnId: number; color: string };
+  currentPegObj: { btnId: number; color: string }; // the currentely selected button
   setUserColorChoice: (pegObj: { btnId: number; color: string }) => void;
 }
 
@@ -28,14 +28,21 @@ const ColorPalette: React.FC<PassedProps> = props => {
   };
 
   const availableColors = COLOR_PALETTE.map((color, index) => {
+    const { color: currentColor } = props.currentPegObj;
+    const pegStyle: React.CSSProperties = {
+      border: "1px solid #9ecaed",
+      boxShadow: `inset -10px -10px 25px 12px ${color}, 0 0 10px #9ecaed`
+    };
+
     return (
       <ColoredPeg
         color={color}
         btnId={index}
         key={index}
-        isPaletteColor={true}
+        activeStyle={color === currentColor ? pegStyle : {}}
+        isColorPalette={true}
         handleSetPegColor={setPegColor}
-        currentUserColor={color}
+        currentUserColor={currentColor}
       />
     );
   });

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ColorPalette from "./colorPalette";
 import GameBoardColumn from "./gameBoardColumn";
+import { isEqual } from "lodash";
 
 import { setupGameLogic } from "../util/helpers";
 
@@ -28,11 +29,16 @@ const GameBoard: React.FC = () => {
     btnId: number;
     color: string;
   }) => {
+    console.log("setting current color to -> ", pegObj.color);
     setCurrentColor(pegObj);
   };
 
-  const handleSubmitAttempt = (attemptArray: Array<string>) => {
-    console.log("user is guessing", attemptArray);
+  const handleSubmitAttempt = (userSequence: Array<string>) => {
+    if (isEqual(userSequence, winningSequence)) {
+      console.log("WINNER");
+    }
+    setCurrentAttempt(currentAttempt + 1);
+    console.log("user is guessing", userSequence);
   };
 
   const drawGameBoardColumn = () => {
@@ -43,6 +49,7 @@ const GameBoard: React.FC = () => {
           key={"row" + i.toString()}
           rowInd={i}
           submitAttempt={handleSubmitAttempt}
+          currentAttempt={currentAttempt}
           currentUserColor={userCurrentColor.color}
         />
       );

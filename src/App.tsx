@@ -7,7 +7,7 @@ import GameBoard from "./containers/gameBoard";
 
 const App: React.FC = () => {
   const [showModal, toggleModal] = useState(true);
-  const [showGameBoard, toggleGameBoard] = useState(false);
+  const [showGameBoard, toggleGameBoard] = useState(true); // set back to false after DEBUG
 
   const handleModalClick = () => {
     console.log("Im clicking on my modal");
@@ -31,7 +31,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <NavBar />
-      {showModal ? <Modal modalProps={ModalProps} /> : null}
+      {/* {showModal ? <Modal modalProps={ModalProps} /> : null} */}
       {showGameBoard ? <GameBoard /> : null}
     </div>
   );
