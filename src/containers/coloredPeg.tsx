@@ -22,11 +22,11 @@ const ColoredPeg: React.FC<PassedProps> = props => {
   const [active, toogleActive] = React.useState<boolean>(false);
 
   useEffect(() => {
-    const { currentUserColor, color } = props;
-    if (color !== currentUserColor) {
+    const { isColorPalette, currentUserColor, color } = props;
+    if (isColorPalette && color !== currentUserColor) {
       toogleActive(false);
     }
-  });
+  }, [props]);
 
   const setPegMarkerStyle = () => {
     const newStyle: any = { ...PegStyle }; // this should be React.CSSProperties
@@ -55,8 +55,9 @@ const ColoredPeg: React.FC<PassedProps> = props => {
   };
 
   const handleClick = () => {
-    toogleActive(!active);
+    console.log("props", props);
     props.handleSetPegColor(props.btnId, color);
+    toogleActive(!active);
   };
 
   return <div style={setPegMarkerStyle()} onClick={handleClick} />;

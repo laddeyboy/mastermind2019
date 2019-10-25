@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ColorPalette from "./colorPalette";
 import GameBoardColumn from "./gameBoardColumn";
 import { isEqual } from "lodash";
 
-import { setupGameLogic } from "../util/helpers";
+import { setupGameLogic, setupGameBoard } from "../util/helpers";
+import { EMPTY_PEG_SLOT } from "../util/constants";
 
 const gameBoardStyling: React.CSSProperties = {
   width: "80vw",
@@ -18,10 +19,14 @@ const gameBoardStyling: React.CSSProperties = {
 
 const GameBoard: React.FC = () => {
   const [winningSequence] = useState(setupGameLogic());
+  // const [userSequences, setUserSequence] = useState({});
   const [userAttempts, setGuesses] = useState(10);
+  const [userSequences, setUserSequence] = useState(
+    setupGameBoard(userAttempts)
+  );
   const [userCurrentColor, setCurrentColor] = useState({
     btnId: 0,
-    color: "white"
+    color: EMPTY_PEG_SLOT
   });
   const [currentAttempt, setCurrentAttempt] = useState(0);
 
@@ -29,11 +34,12 @@ const GameBoard: React.FC = () => {
     btnId: number;
     color: string;
   }) => {
-    console.log("setting current color to -> ", pegObj.color);
     setCurrentColor(pegObj);
   };
 
   const handleSubmitAttempt = (userSequence: Array<string>) => {
+    setUserSequence({ [`row${currentAttempt}`]: userSequence });
+    setCurrentAttempt(currentAttempt + 1);
     if (isEqual(userSequence, winningSequence)) {
       console.log("WINNER");
     }
@@ -44,9 +50,11 @@ const GameBoard: React.FC = () => {
   const drawGameBoardColumn = () => {
     const gameColumns = [];
     for (let i = 0; i < userAttempts; i++) {
+      const rowInd = `row${i}`;
       gameColumns.push(
         <GameBoardColumn
-          key={"row" + i.toString()}
+          key={rowInd}
+          userSequence={userSequences[rowInd]}
           rowInd={i}
           submitAttempt={handleSubmitAttempt}
           currentAttempt={currentAttempt}
@@ -57,7 +65,6 @@ const GameBoard: React.FC = () => {
     return gameColumns;
   };
 
-  // return <div style={gameBoardStyling}>{drawGameBoardColumn()}</div>;
   return (
     <React.Fragment>
       <ColorPalette

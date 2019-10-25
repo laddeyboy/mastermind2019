@@ -1,4 +1,5 @@
 import { COLOR_PALETTE } from "./constants";
+import { number } from "prop-types";
 
 function setColorSequence() {
   const sequence = [];
@@ -12,4 +13,12 @@ function setColorSequence() {
 export const setupGameLogic = () => {
   const winningSequence = setColorSequence();
   return winningSequence;
+};
+
+export const setupGameBoard = (userAttempts: number) => {
+  const gameBoard: { [key: string]: Array<string> } = {};
+  for (let i = 0; i < userAttempts; i++) {
+    gameBoard[`row${i}`] = [];
+  }
+  return gameBoard;
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ColoredPeg from "./coloredPeg";
 import { EMPTY_PEG_SLOT } from "../util/constants";
 
@@ -30,27 +30,36 @@ interface PassedProps {
   rowInd: number;
   currentAttempt: number;
   currentUserColor: string;
+  userSequence: Array<string>;
   submitAttempt: (attemptArray: Array<string>) => void;
 }
 
 const GameBoardColumn: React.FC<PassedProps> = props => {
-  const [attemptArray, setAttemptArray] = useState<Array<string>>([]);
+  const [attemptArray, setAttemptArray] = useState<Array<string>>([
+    "",
+    "",
+    "",
+    ""
+  ]);
 
   const handleCheckAttempt = () => {
+    console.log("handling", attemptArray);
     props.submitAttempt(attemptArray);
   };
   const handleSetAttempt = (btnId: number, color: string) => {
     const newAttempt = [...attemptArray];
-    newAttempt[btnId] = color;
+    newAttempt[btnId] = props.currentUserColor;
     setAttemptArray(newAttempt);
   };
 
   const createdPegHoles = () => {
+    const { userSequence } = props;
     const pegHoleArray = [];
     for (let i = 0; i < 4; i++) {
+      console.log("do I have color", i, attemptArray[i]);
       pegHoleArray.push(
         <ColoredPeg
-          color={EMPTY_PEG_SLOT}
+          color={attemptArray[i] === "" ? EMPTY_PEG_SLOT : attemptArray[i]}
           currentUserColor={props.currentUserColor}
           btnId={i}
           handleSetPegColor={handleSetAttempt}
