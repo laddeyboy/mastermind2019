@@ -18,7 +18,8 @@ interface PassedProps {
 }
 
 const ColoredPeg: React.FC<PassedProps> = props => {
-  const [color] = React.useState<string>(props.color);
+  // COLORED PEG DOESN"T NEED A COLOR STATE IF I"M JUST PASSING IT IN!@!@!!!!
+  const [color, setColor] = React.useState<string>(props.color);
   const [active, toogleActive] = React.useState<boolean>(false);
 
   useEffect(() => {
@@ -48,16 +49,27 @@ const ColoredPeg: React.FC<PassedProps> = props => {
         newStyle.boxShadow = `6px 3px 2px gray, inset -15px -15px 25px 12px ${color}`;
       } else {
         newStyle.background = "white";
-        newStyle.boxShadow = `inset -10px -10px 25px 12px ${props.currentUserColor}`;
+        newStyle.boxShadow = `inset -10px -10px 25px 12px ${props.color}`;
       }
     }
     return newStyle;
   };
 
   const handleClick = () => {
-    console.log("props", props);
-    props.handleSetPegColor(props.btnId, color);
-    toogleActive(!active);
+    const { currentUserColor, btnId } = props;
+    if (active) {
+      if (color !== currentUserColor) {
+        setColor(currentUserColor);
+        props.handleSetPegColor(btnId, color);
+      } else if (color === currentUserColor) {
+        setColor(EMPTY_PEG_SLOT);
+        props.handleSetPegColor(btnId, EMPTY_PEG_SLOT);
+        toogleActive(!active);
+      }
+    } else {
+      props.handleSetPegColor(btnId, color);
+      toogleActive(!active);
+    }
   };
 
   return <div style={setPegMarkerStyle()} onClick={handleClick} />;

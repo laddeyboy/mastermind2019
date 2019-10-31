@@ -2,6 +2,7 @@ import React from "react";
 
 import { COLOR_PALETTE } from "../util/constants";
 import ColoredPeg from "./coloredPeg";
+import { EMPTY_PEG_SLOT } from "../util/constants";
 
 const ColorPaletteStyle = {
   height: "4.5rem",
@@ -24,7 +25,12 @@ interface PassedProps {
 
 const ColorPalette: React.FC<PassedProps> = props => {
   const setPegColor = (btnId: number, color: string) => {
-    props.setUserColorChoice({ btnId, color });
+    const { color: currentColor } = props.currentPegObj;
+    if (color === currentColor) {
+      props.setUserColorChoice({ btnId, color: EMPTY_PEG_SLOT });
+    } else {
+      props.setUserColorChoice({ btnId, color });
+    }
   };
 
   const availableColors = COLOR_PALETTE.map((color, index) => {

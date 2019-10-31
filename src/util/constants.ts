@@ -4,7 +4,7 @@ export const COLOR_PALETTE: Array<string> = [
   "gold",
   "black",
   "green",
-  "brown"
+  "#3003b9"
 ];
 
 export const EMPTY_PEG_SLOT = "beige";

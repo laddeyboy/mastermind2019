@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ColorPalette from "./colorPalette";
 import GameBoardColumn from "./gameBoardColumn";
 import { isEqual } from "lodash";
@@ -20,7 +20,7 @@ const gameBoardStyling: React.CSSProperties = {
 const GameBoard: React.FC = () => {
   const [winningSequence] = useState(setupGameLogic());
   // const [userSequences, setUserSequence] = useState({});
-  const [userAttempts, setGuesses] = useState(10);
+  const [userAttempts] = useState(10); // ADD setGuesses when I setup game start modal
   const [userSequences, setUserSequence] = useState(
     setupGameBoard(userAttempts)
   );
@@ -29,6 +29,10 @@ const GameBoard: React.FC = () => {
     color: EMPTY_PEG_SLOT
   });
   const [currentAttempt, setCurrentAttempt] = useState(0);
+
+  // useEffect(() => {
+  //   console.log("current color -> ", userCurrentColor);
+  // });
 
   const handleSetUserColorChoice = (pegObj: {
     btnId: number;
@@ -62,6 +66,7 @@ const GameBoard: React.FC = () => {
         />
       );
     }
+    // push code solution here into the array
     return gameColumns;
   };
 

@@ -53,12 +53,12 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
   };
 
   const createdPegHoles = () => {
-    const { userSequence } = props;
+    // const { userSequence } = props;
     const pegHoleArray = [];
     for (let i = 0; i < 4; i++) {
-      console.log("do I have color", i, attemptArray[i]);
       pegHoleArray.push(
         <ColoredPeg
+          key={i}
           color={attemptArray[i] === "" ? EMPTY_PEG_SLOT : attemptArray[i]}
           currentUserColor={props.currentUserColor}
           btnId={i}
@@ -68,6 +68,16 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
     }
     return pegHoleArray;
   };
+
+  // const gameRowBtnSectionActive = () => {
+  //   const { rowInd, currentAttempt } = props;
+  //   const activeAttempt = { ...gameRowBtnSection };
+  //   if (rowInd >= currentAttempt) {
+  //     activeAttempt.opacity = 0.8;
+  //   }
+  //   return activeAttempt;
+  // };
+
   return (
     <div style={gameRowStyle}>
       <div style={{ padding: "2%" }}>Guess {props.rowInd + 1}</div>

@@ -1,5 +1,4 @@
 import { COLOR_PALETTE } from "./constants";
-import { number } from "prop-types";
 
 function setColorSequence() {
   const sequence = [];
