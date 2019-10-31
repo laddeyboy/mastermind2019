@@ -18,8 +18,6 @@ interface PassedProps {
 }
 
 const ColoredPeg: React.FC<PassedProps> = props => {
-  // COLORED PEG DOESN"T NEED A COLOR STATE IF I"M JUST PASSING IT IN!@!@!!!!
-  const [color, setColor] = React.useState<string>(props.color);
   const [active, toogleActive] = React.useState<boolean>(false);
 
   useEffect(() => {
@@ -31,7 +29,7 @@ const ColoredPeg: React.FC<PassedProps> = props => {
 
   const setPegMarkerStyle = () => {
     const newStyle: any = { ...PegStyle }; // this should be React.CSSProperties
-    const { isColorPalette } = props;
+    const { isColorPalette, color } = props;
     if (isColorPalette) {
       newStyle.background = "white";
       newStyle.boxShadow = `6px 3px 2px gray, inset -15px -15px 25px 12px ${color}`;
@@ -46,23 +44,21 @@ const ColoredPeg: React.FC<PassedProps> = props => {
       // not a colorPalete Peg
       if (!active) {
         newStyle.background = EMPTY_PEG_SLOT;
-        newStyle.boxShadow = `6px 3px 2px gray, inset -15px -15px 25px 12px ${color}`;
+        newStyle.boxShadow = `6px 3px 2px gray, inset -15px -15px 25px 12px ${EMPTY_PEG_SLOT}`;
       } else {
         newStyle.background = "white";
-        newStyle.boxShadow = `inset -10px -10px 25px 12px ${props.color}`;
+        newStyle.boxShadow = `inset -10px -10px 25px 12px ${color}`;
       }
     }
     return newStyle;
   };
 
   const handleClick = () => {
-    const { currentUserColor, btnId } = props;
+    const { currentUserColor, btnId, color } = props;
     if (active) {
       if (color !== currentUserColor) {
-        setColor(currentUserColor);
         props.handleSetPegColor(btnId, color);
       } else if (color === currentUserColor) {
-        setColor(EMPTY_PEG_SLOT);
         props.handleSetPegColor(btnId, EMPTY_PEG_SLOT);
         toogleActive(!active);
       }
