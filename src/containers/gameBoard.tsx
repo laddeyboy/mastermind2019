@@ -3,7 +3,7 @@ import ColorPalette from "./colorPalette";
 import GameBoardColumn from "./gameBoardColumn";
 import { isEqual } from "lodash";
 
-import { setupGameLogic, setupGameBoard } from "../util/helpers";
+import { createWinningSequence, setupGameBoard } from "../util/helpers";
 import { EMPTY_PEG_SLOT } from "../util/constants";
 
 const gameBoardStyling: React.CSSProperties = {
@@ -18,7 +18,7 @@ const gameBoardStyling: React.CSSProperties = {
 };
 
 const GameBoard: React.FC = () => {
-  const [winningSequence] = useState(setupGameLogic());
+  const [winningSequence] = useState(createWinningSequence());
   // const [userSequences, setUserSequence] = useState({});
   const [userAttempts] = useState(10); // ADD setGuesses when I setup game start modal
   const [userSequences, setUserSequence] = useState(

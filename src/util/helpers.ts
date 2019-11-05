@@ -9,7 +9,7 @@ function setColorSequence() {
   return sequence;
 }
 
-export const setupGameLogic = () => {
+export const createWinningSequence = () => {
   const winningSequence = setColorSequence();
   return winningSequence;
 };
