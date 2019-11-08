@@ -5,6 +5,7 @@ import { isEqual } from "lodash";
 
 import { createWinningSequence, setupGameBoard } from "../util/helpers";
 import { EMPTY_PEG_SLOT } from "../util/constants";
+import PegBoard from "./pegBoard";
 
 const gameBoardStyling: React.CSSProperties = {
   width: "80vw",
@@ -18,21 +19,22 @@ const gameBoardStyling: React.CSSProperties = {
 };
 
 const GameBoard: React.FC = () => {
-  const [winningSequence] = useState(createWinningSequence());
   // const [userSequences, setUserSequence] = useState({});
   const [userAttempts] = useState(10); // ADD setGuesses when I setup game start modal
-  const [userSequences, setUserSequence] = useState(
-    setupGameBoard(userAttempts)
-  );
+  const [currentAttempt, setCurrentAttempt] = useState(0);
+  const [winningSequence, setWinningSequence] = useState<Array<string>>([]);
+  const [userSequences, setUserSequence] = useState<{
+    [key: string]: Array<string>;
+  }>({});
   const [userCurrentColor, setCurrentColor] = useState({
     btnId: 0,
     color: EMPTY_PEG_SLOT
   });
-  const [currentAttempt, setCurrentAttempt] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("current color -> ", userCurrentColor);
-  // });
+  useEffect(() => {
+    setWinningSequence(createWinningSequence());
+    setupGameBoard(userAttempts);
+  }, []);
 
   const handleSetUserColorChoice = (pegObj: {
     btnId: number;
@@ -51,32 +53,19 @@ const GameBoard: React.FC = () => {
     console.log("user is guessing", userSequence);
   };
 
-  const drawGameBoardColumn = () => {
-    const gameColumns = [];
-    for (let i = 0; i < userAttempts; i++) {
-      const rowInd = `row${i}`;
-      gameColumns.push(
-        <GameBoardColumn
-          key={rowInd}
-          userSequence={userSequences[rowInd]}
-          rowInd={i}
-          submitAttempt={handleSubmitAttempt}
-          currentAttempt={currentAttempt}
-          currentUserColor={userCurrentColor.color}
-        />
-      );
-    }
-    // push code solution here into the array
-    return gameColumns;
-  };
-
   return (
     <React.Fragment>
       <ColorPalette
         currentPegObj={userCurrentColor}
         setUserColorChoice={handleSetUserColorChoice}
       />
-      <div style={gameBoardStyling}>{drawGameBoardColumn()}</div>
+      <PegBoard
+        userAttempts={userAttempts}
+        currentAttempt={currentAttempt}
+        userCurrentColor={userCurrentColor}
+        userSequences={userSequences}
+        handleSubmitAttempt={handleSubmitAttempt}
+      />
     </React.Fragment>
   );
 };
