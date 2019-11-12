@@ -43,13 +43,15 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
   ]);
 
   const handleCheckAttempt = () => {
-    console.log("handling", attemptArray);
     props.submitAttempt(attemptArray);
   };
   const handleSetAttempt = (btnId: number, color: string) => {
-    const newAttempt = [...attemptArray];
-    newAttempt[btnId] = props.currentUserColor;
-    setAttemptArray(newAttempt);
+    const { currentAttempt, rowInd } = props;
+    if (currentAttempt === rowInd) {
+      const newAttempt = [...attemptArray];
+      newAttempt[btnId] = props.currentUserColor;
+      setAttemptArray(newAttempt);
+    }
   };
 
   const createdPegHoles = () => {

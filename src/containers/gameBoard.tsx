@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ColorPalette from "./colorPalette";
-import GameBoardColumn from "./gameBoardColumn";
 import { isEqual } from "lodash";
 
 import { createWinningSequence, setupGameBoard } from "../util/helpers";
 import { EMPTY_PEG_SLOT } from "../util/constants";
 import PegBoard from "./pegBoard";
-
-const gameBoardStyling: React.CSSProperties = {
-  width: "80vw",
-  height: "40vh",
-  position: "absolute",
-  top: "30%",
-  left: "calc(50% - 40vw",
-  border: "2px solid black",
-  display: "flex",
-  backgroundColor: "#b3b3b3"
-};
 
 const GameBoard: React.FC = () => {
   // const [userSequences, setUserSequence] = useState({});
@@ -52,6 +40,8 @@ const GameBoard: React.FC = () => {
     setCurrentAttempt(currentAttempt + 1);
     console.log("user is guessing", userSequence);
   };
+
+  console.log("winning Sequence", winningSequence);
 
   return (
     <React.Fragment>
