@@ -5,7 +5,8 @@ import { EMPTY_PEG_SLOT } from "../util/constants";
 const gameRowStyle: React.CSSProperties = {
   height: "100%",
   width: "calc(100% / 11)",
-  border: ".5px solid black"
+  border: ".5px solid black",
+  opacity: 0.2 // this is what makes it dark
 };
 
 const gameRowBtnSection: React.CSSProperties = {
@@ -80,8 +81,18 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
   //   return activeAttempt;
   // };
 
+  const activateGameRow = () => {
+    const { currentAttempt, rowInd } = props;
+    if (currentAttempt >= rowInd) {
+      const updateGameRowStyle = { ...gameRowStyle };
+      updateGameRowStyle.opacity = 1;
+      return updateGameRowStyle;
+    }
+    return gameRowStyle;
+  };
+
   return (
-    <div style={gameRowStyle}>
+    <div style={activateGameRow()}>
       <div style={{ padding: "2%" }}>Guess {props.rowInd + 1}</div>
       <div style={gameRowBtnSection}>
         {createdPegHoles()}
