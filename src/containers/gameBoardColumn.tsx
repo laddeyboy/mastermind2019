@@ -6,7 +6,7 @@ const gameRowStyle: React.CSSProperties = {
   height: "100%",
   width: "calc(100% / 11)",
   border: ".5px solid black",
-  opacity: 0.2 // this is what makes it dark
+  opacity: 0.2 //this is what makes it dark
 };
 
 const gameRowBtnSection: React.CSSProperties = {
@@ -36,16 +36,14 @@ interface PassedProps {
 }
 
 const GameBoardColumn: React.FC<PassedProps> = props => {
-  const [attemptArray, setAttemptArray] = useState<Array<string>>([
-    "",
-    "",
-    "",
-    ""
-  ]);
+  const [attemptArray, setAttemptArray] = useState<Array<string>>(
+    Array(4).fill("")
+  );
 
   const handleCheckAttempt = () => {
     props.submitAttempt(attemptArray);
   };
+
   const handleSetAttempt = (btnId: number, color: string) => {
     const { currentAttempt, rowInd } = props;
     if (currentAttempt === rowInd) {
@@ -56,7 +54,6 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
   };
 
   const createdPegHoles = () => {
-    // const { userSequence } = props;
     const pegHoleArray = [];
     for (let i = 0; i < 4; i++) {
       pegHoleArray.push(
@@ -72,21 +69,17 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
     return pegHoleArray;
   };
 
-  // const gameRowBtnSectionActive = () => {
-  //   const { rowInd, currentAttempt } = props;
-  //   const activeAttempt = { ...gameRowBtnSection };
-  //   if (rowInd >= currentAttempt) {
-  //     activeAttempt.opacity = 0.8;
-  //   }
-  //   return activeAttempt;
-  // };
+  const createdMarkerHoles = () => {
+    const markerHoleArray = [];
+    // need to rethink this whole damn thing!!!!
+  };
 
   const activateGameRow = () => {
     const { currentAttempt, rowInd } = props;
     if (currentAttempt >= rowInd) {
-      const updateGameRowStyle = { ...gameRowStyle };
-      updateGameRowStyle.opacity = 1;
-      return updateGameRowStyle;
+      const updatedGameRowStyle = { ...gameRowStyle };
+      updatedGameRowStyle.opacity = 1;
+      return updatedGameRowStyle;
     }
     return gameRowStyle;
   };
@@ -96,6 +89,7 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
       <div style={{ padding: "2%" }}>Guess {props.rowInd + 1}</div>
       <div style={gameRowBtnSection}>
         {createdPegHoles()}
+        {createdMarkerHoles()}
         <div>
           <button
             type="button"

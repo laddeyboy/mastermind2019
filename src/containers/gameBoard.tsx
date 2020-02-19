@@ -7,7 +7,6 @@ import { EMPTY_PEG_SLOT } from "../util/constants";
 import PegBoard from "./pegBoard";
 
 const GameBoard: React.FC = () => {
-  // const [userSequences, setUserSequence] = useState({});
   const [userAttempts] = useState(10); // ADD setGuesses when I setup game start modal
   const [currentAttempt, setCurrentAttempt] = useState(0);
   const [winningSequence, setWinningSequence] = useState<Array<string>>([]);
@@ -20,6 +19,7 @@ const GameBoard: React.FC = () => {
   });
 
   useEffect(() => {
+    // componentDidMount()
     setWinningSequence(createWinningSequence());
     setupGameBoard(userAttempts);
   }, []);
@@ -41,21 +41,22 @@ const GameBoard: React.FC = () => {
     console.log("user is guessing", userSequence);
   };
 
-  console.log("winning Sequence", winningSequence);
-
   return (
     <React.Fragment>
       <ColorPalette
         currentPegObj={userCurrentColor}
         setUserColorChoice={handleSetUserColorChoice}
       />
-      <PegBoard
-        userAttempts={userAttempts}
-        currentAttempt={currentAttempt}
-        userCurrentColor={userCurrentColor}
-        userSequences={userSequences}
-        handleSubmitAttempt={handleSubmitAttempt}
-      />
+      {winningSequence.length > 0 ? (
+        <PegBoard
+          userAttempts={userAttempts}
+          currentAttempt={currentAttempt}
+          userCurrentColor={userCurrentColor}
+          userSequences={userSequences}
+          handleSubmitAttempt={handleSubmitAttempt}
+          solutionCode={winningSequence}
+        />
+      ) : null}
     </React.Fragment>
   );
 };

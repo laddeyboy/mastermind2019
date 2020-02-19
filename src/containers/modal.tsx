@@ -7,7 +7,7 @@ const modalBackground: React.CSSProperties = {
 };
 
 const modalContainer: React.CSSProperties = {
-  width: "50vw",
+  width: "25vw",
   height: "50vh",
   backgroundColor: "gray",
   position: "absolute",
@@ -55,9 +55,9 @@ const modalClose: React.CSSProperties = {
 interface OwnProps {
   modalProps: {
     title: string;
-    content: string;
-    onClick: () => void;
-    onClose: () => void;
+    content: string | any;
+    onClick?: () => void;
+    onClose?: () => void;
   };
 }
 
