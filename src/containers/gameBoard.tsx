@@ -5,6 +5,7 @@ import { isEqual } from "lodash";
 import { createWinningSequence, setupGameBoard } from "../util/helpers";
 import { EMPTY_PEG_SLOT } from "../util/constants";
 import PegBoard from "./pegBoard";
+import Nav from "./navbar";
 
 const GameBoard: React.FC = () => {
   const [userAttempts] = useState(10); // ADD setGuesses when I setup game start modal
@@ -22,7 +23,7 @@ const GameBoard: React.FC = () => {
     // componentDidMount()
     setWinningSequence(createWinningSequence());
     setupGameBoard(userAttempts);
-  }, []);
+  }, [userAttempts]);
 
   const handleSetUserColorChoice = (pegObj: {
     btnId: number;
@@ -43,6 +44,7 @@ const GameBoard: React.FC = () => {
 
   return (
     <React.Fragment>
+      <Nav />
       <ColorPalette
         currentPegObj={userCurrentColor}
         setUserColorChoice={handleSetUserColorChoice}

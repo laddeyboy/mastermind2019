@@ -1,39 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import Modal from "../modal";
+import SignIn from "./SignIn";
 
-const WelcomeScreen: React.FC = () => {
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [userPassword, setUserPassword] = useState<string>("");
-
-  const ModalContent = () => {
-    return (
-      <div>
-        <h4>"Welcome to the redesigned Mastermind game!"</h4>
-        <label>Email</label>
-        <input
-          type="text"
-          onChange={e => setUserEmail(e.target.value)}
-          value={userEmail}
-        />
-        <br />
-        <label>Password</label>
-        <input
-          type="password"
-          onChange={e => setUserPassword(e.target.value)}
-          value={userPassword}
-        />
-      </div>
-    );
-  };
+const WelcomeScreen: React.FC<RouteComponentProps> = props => {
+  useEffect(() => {
+    return () => console.log("WELCOME SCREEN UNMOUNTED....");
+  });
 
   const WelcomeModalProps = {
-    title: "Mastermind 2020",
-    content: ModalContent()
+    title: "Mastermind 2020"
   };
 
-  console.log(`email ${userEmail}, pass ${userPassword}`);
-  return <Modal modalProps={WelcomeModalProps} />;
+  const handleSetUserInfo = (userData: any) => {
+    const { userEmail, userPassword } = userData;
+    if (userEmail !== "" && userPassword !== "") {
+      props.history.push("/game");
+    }
+  };
+
+  return (
+    <Modal modalProps={WelcomeModalProps}>
+      <SignIn setUserInfo={handleSetUserInfo} />
+    </Modal>
+  );
 };
 
-export default WelcomeScreen;
+export default withRouter(WelcomeScreen);

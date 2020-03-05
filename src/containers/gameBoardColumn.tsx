@@ -70,7 +70,7 @@ const GameBoardColumn: React.FC<PassedProps> = props => {
   };
 
   const createdMarkerHoles = () => {
-    const markerHoleArray = [];
+    // const markerHoleArray = [];
     // need to rethink this whole damn thing!!!!
   };
 

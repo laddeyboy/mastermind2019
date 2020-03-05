@@ -35,7 +35,7 @@ const modalContent: React.CSSProperties = {
 };
 
 const modalHeading: React.CSSProperties = {
-  width: "90%",
+  width: "100%",
   height: "100%",
   display: "flex",
   justifyContent: "center",
@@ -55,25 +55,27 @@ const modalClose: React.CSSProperties = {
 interface OwnProps {
   modalProps: {
     title: string;
-    content: string | any;
+    content?: string | any;
     onClick?: () => void;
     onClose?: () => void;
   };
 }
 
 const Modal: React.FC<OwnProps> = props => {
-  const { title, content, onClick, onClose } = props.modalProps;
+  const { title, onClick, onClose } = props.modalProps;
   return (
     <div style={modalBackground}>
       <div style={modalContainer}>
         <div style={modalTitle}>
           <div style={modalHeading}>{title}</div>
-          <div style={modalClose} onClick={onClose}>
-            X
-          </div>
+          {onClose ? (
+            <div style={modalClose} onClick={onClose}>
+              <p style={{ transform: "rotate(45deg)", fontSize: "2rem" }}>+</p>
+            </div>
+          ) : null}
         </div>
         <div style={modalContent} onClick={onClick}>
-          {content}
+          {props.children}
         </div>
       </div>
     </div>
